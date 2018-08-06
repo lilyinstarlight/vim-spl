@@ -19,115 +19,49 @@ syntax region splSingleString start=/'/ skip=/\\'/ end=/'/
 " numbers
 syntax match splNumber '\v<\d+>'
 syntax match splFloat '\v<\d+\.\d+>'
-"
-" contexts
-syntax keyword splConstant
-      \ false
-      \ true
 
 " separators
 syntax keyword splSeparator
       \ =
       \ |
 
-" eval commands
-syntax keyword splEvalCommand
-      \ abs
-      \ acos
-      \ acosh
-      \ asin
-      \ asinh
-      \ atan
-      \ atan2
-      \ atanh
-      \ case
-      \ cidrmatch
-      \ ceiling
-      \ coalesce
-      \ commands
-      \ cos
-      \ cosh
-      \ exact
-      \ exp
-      \ false
-      \ floor
-      \ hypot
-      \ if
-      \ in
-      \ isbool
-      \ isint
-      \ isnotnull
-      \ isnull
-      \ isnum
-      \ isstr
-      \ len
-      \ like
-      \ ln
-      \ log
-      \ lower
-      \ ltrim
-      \ match
-      \ max
-      \ md5
-      \ min
-      \ mvappend
-      \ mvcount
-      \ mvdedup
-      \ mvfilter
-      \ mvfind
-      \ mvindex
-      \ mvjoin
-      \ mvrange
-      \ mvsort
-      \ mvzip
-      \ now
-      \ null
-      \ nullif
-      \ pi
-      \ pow
-      \ printf
-      \ random
-      \ relative_time
-      \ replace
-      \ round
-      \ rtrim
-      \ searchmatch
-      \ sha1
-      \ sha256
-      \ sha512
-      \ sigfig
-      \ sin
-      \ sinh
-      \ spath
-      \ split
-      \ sqrt
-      \ strftime
-      \ strptime
-      \ substr
-      \ tan
-      \ tanh
-      \ time
-      \ tonumber
-      \ tostring
-      \ trim
-      \ true
-      \ typeof
-      \ upper
-      \ urldecode
-      \ validate
-
-" eval context
-syntax keyword splEvalOperator
-      \ +
-      \ -
+" specials
+syntax keyword splSpecial
       \ *
-      \ /
-      \ ==
-      \ /=
-      \ <
-      \ <=
-      \ >
-      \ >=
+
+" constants
+syntax keyword splConstant
+      \ false
+      \ true
+
+" operators
+syntax keyword splOperator
+      \ AND
+      \ NOT
+      \ OR
+      \ by
+      \ BY
+      \ as
+      \ AS
+      \ over
+      \ size
+
+" bad operators
+syntax keyword splBadOperator
+      \ and
+      \ not
+      \ or
+
+" identifiers
+syntax keyword splIdentifier
+      \ time
+      \ span
+      \ earliest
+      \ latest
+      \ limit
+      \ minspan
+      \ start
+      \ end
 
 " search commands
 syntax keyword splCommand
@@ -278,6 +212,146 @@ syntax keyword splCommand
       \ xpath
       \ xyseries
 
+" internal commands
+syntax keyword splInternal
+      \ collapse
+      \ dump
+      \ findkeywords
+      \ mcatalog
+      \ noop
+      \ runshellscript
+      \ sendalert
+
+" eval functions
+syntax keyword splEvalFunction
+      \ abs
+      \ acos
+      \ acosh
+      \ asin
+      \ asinh
+      \ atan
+      \ atan2
+      \ atanh
+      \ case
+      \ cidrmatch
+      \ ceiling
+      \ coalesce
+      \ commands
+      \ cos
+      \ cosh
+      \ exact
+      \ exp
+      \ false
+      \ floor
+      \ hypot
+      \ if
+      \ in
+      \ isbool
+      \ isint
+      \ isnotnull
+      \ isnull
+      \ isnum
+      \ isstr
+      \ len
+      \ like
+      \ ln
+      \ log
+      \ lower
+      \ ltrim
+      \ match
+      \ max
+      \ md5
+      \ min
+      \ mvappend
+      \ mvcount
+      \ mvdedup
+      \ mvfilter
+      \ mvfind
+      \ mvindex
+      \ mvjoin
+      \ mvrange
+      \ mvsort
+      \ mvzip
+      \ now
+      \ null
+      \ nullif
+      \ pi
+      \ pow
+      \ printf
+      \ random
+      \ relative_time
+      \ replace
+      \ round
+      \ rtrim
+      \ searchmatch
+      \ sha1
+      \ sha256
+      \ sha512
+      \ sigfig
+      \ sin
+      \ sinh
+      \ spath
+      \ split
+      \ sqrt
+      \ strftime
+      \ strptime
+      \ substr
+      \ tan
+      \ tanh
+      \ time
+      \ tonumber
+      \ tostring
+      \ trim
+      \ true
+      \ typeof
+      \ upper
+      \ urldecode
+      \ validate
+
+" eval operators
+syntax keyword splEvalOperator
+      \ +
+      \ -
+      \ *
+      \ /
+      \ ==
+      \ !=
+      \ <
+      \ <=
+      \ >
+      \ >=
+
+" stat functions
+syntax keyword splStatFunction
+      \ avg
+      \ count
+      \ distinct_count
+      \ estdc
+      \ estdc_error
+      \ max
+      \ mean
+      \ median
+      \ min
+      \ mode
+      \ percentile
+      \ range
+      \ stdev
+      \ stdevp
+      \ sum
+      \ sumsq
+      \ var
+      \ varp
+      \ earliest
+      \ first
+      \ last
+      \ latest
+      \ list
+      \ values
+      \ per_day
+      \ per_hour
+      \ per_minute
+      \ per_second
+
 " set highlights
 highlight default link splComment Comment
 
@@ -288,10 +362,19 @@ highlight default link splNumber Number
 highlight default link splFloat Float
 
 highlight default link splSeparator Special
+highlight default link splSpecial Special
 
 highlight default link splConstant Constant
 
-highlight default link splCommand Keyword
+highlight default link splOperator Operator
+highlight default link splBadOperator Error
 
-highlight default link splEvalCommand Keyword
+highlight default link splIdentifier Identifier
+
+highlight default link splCommand Keyword
+highlight default link splInternal Keyword
+
+highlight default link splEvalFunction Function
 highlight default link splEvalOperator Operator
+
+highlight default link splStatFunction Function
