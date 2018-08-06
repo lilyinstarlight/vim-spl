@@ -20,8 +20,8 @@ setlocal shiftwidth=2
 setlocal expandtab
 
 " comment information
-setlocal comments=sO:`comment(",mO:  ,exO:")`
-setlocal commentstring=`comment("%s")`
+setlocal comments=sO:`comment(\",exO:\")`
+setlocal commentstring=`comment(\"%s\")`
 
 " formatting options
 setlocal formatoptions+=cq
