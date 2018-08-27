@@ -46,12 +46,6 @@ syntax keyword splOperator
       \ over
       \ size
 
-" bad operators
-syntax keyword splBadOperator
-      \ and
-      \ not
-      \ or
-
 " identifiers
 syntax keyword splIdentifier
       \ time
@@ -367,7 +361,6 @@ highlight default link splSpecial Special
 highlight default link splConstant Constant
 
 highlight default link splOperator Operator
-highlight default link splBadOperator Error
 
 highlight default link splIdentifier Identifier
 
