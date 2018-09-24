@@ -10,7 +10,7 @@ endif
 let b:current_syntax='spl'
 
 " comments
-syn region splComment start='`comment("' end='")`'
+syntax region splComment start='`comment("' end='")`'
 
 " strings
 syntax region splDoubleString start=/"/ skip=/\\"/ end=/"/
@@ -36,11 +36,8 @@ syntax keyword splConstant
 
 " operators
 syntax keyword splOperator
-      \ and
       \ AND
-      \ not
       \ NOT
-      \ or
       \ OR
       \ by
       \ BY
@@ -317,6 +314,9 @@ syntax keyword splEvalOperator
       \ <=
       \ >
       \ >=
+      \ and
+      \ not
+      \ or
 
 " stat functions
 syntax keyword splStatFunction
@@ -364,6 +364,7 @@ highlight default link splSpecial Special
 highlight default link splConstant Constant
 
 highlight default link splOperator Operator
+highlight default link splEvalOperator Operator
 
 highlight default link splIdentifier Identifier
 
