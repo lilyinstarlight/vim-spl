@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language: SPL
 " Maintainer: Foster McLane
-" Last Change: 2018-08-06
+" Last Change: 2018-09-24
 
 " guard for other syntaxes
 if exists('b:current_syntax')
@@ -36,8 +36,11 @@ syntax keyword splConstant
 
 " operators
 syntax keyword splOperator
+      \ and
       \ AND
+      \ not
       \ NOT
+      \ or
       \ OR
       \ by
       \ BY
