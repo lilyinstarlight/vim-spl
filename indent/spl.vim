@@ -87,7 +87,7 @@ function! GetSPLIndent(lnum)
     let ind+=&sw
     let indented=1
   " if this line starts a new pipe
-  elseif ppline !~ '\v\|$' && pline !~ '\v^\|' && line =~ '\v^\|'
+  elseif ppline !~ '\v\|$' && pline !~ '\v^\|' && pline !~ '\v^$' && line =~ '\v^\|'
     let ind+=&sw
     let indented=1
   " if the last line ended in a pipe do not unindent
