@@ -51,15 +51,15 @@ function! GetSPLIndent(lnum)
   let line=CleanSPL(getline(num))
 
   " get previous line
-  let pnum=GetSPLPrevious(num)
+  let pnum=num-1
   " no indent on first line
-  if pnum == 0
+  if pnum <= 0
     return 0
   endif
   let pline=CleanSPL(getline(pnum))
 
   " get previous previous line
-  let ppnum=GetSPLPrevious(pnum)
+  let ppnum=pnum-1
   let ppline=CleanSPL(getline(ppnum))
 
   " get current indent
@@ -90,10 +90,10 @@ function! GetSPLIndent(lnum)
   elseif ppline !~ '\v\|$' && pline !~ '\v^\|' && line =~ '\v^\|'
     let ind+=&sw
     let indented=1
-  " if the last line ended in a pipe do not indent
+  " if the last line ended in a pipe do not unindent
   elseif pline =~ '\v\|$'
     let indented=1
-  " if the last line had a pipe do not indent
+  " if the last line had a pipe do not unindent
   elseif (ppline =~ '\v\|$' && line =~ '\v^\|') || (pline =~ '\v^\|' && line =~ '\v^\|')
     let indented=1
   endif

@@ -21,21 +21,15 @@ syntax match splNumber '\v<\d+>'
 syntax match splFloat '\v<\d+\.\d+>'
 
 " separators
-syntax keyword splSeparator
+syntax keyword splSeparator contained
       \ =
-      \ |
 
 " specials
-syntax keyword splSpecial
+syntax keyword splSpecial contained
       \ *
 
-" constants
-syntax keyword splConstant
-      \ false
-      \ true
-
 " operators
-syntax keyword splOperator
+syntax keyword splOperator contained
       \ AND
       \ NOT
       \ OR
@@ -46,8 +40,12 @@ syntax keyword splOperator
       \ over
       \ size
 
+syntax keyword splBadOperator contained
+      \ and
+      \ or
+
 " identifiers
-syntax keyword splIdentifier
+syntax keyword splIdentifier contained
       \ time
       \ span
       \ earliest
@@ -57,167 +55,13 @@ syntax keyword splIdentifier
       \ start
       \ end
 
-" search commands
-syntax keyword splCommand
-      \ abstract
-      \ accum
-      \ addcoltotals
-      \ addinfo
-      \ addtotals
-      \ analyzefields
-      \ anomalies
-      \ anomalousvalue
-      \ anomalydetection
-      \ append
-      \ appendcols
-      \ appendpipe
-      \ arules
-      \ associate
-      \ audit
-      \ autoregress
-      \ bin
-      \ bucket
-      \ bucketdir
-      \ chart
-      \ cluster
-      \ cofilter
-      \ collect
-      \ concurrency
-      \ contingency
-      \ convert
-      \ correlate
-      \ ctable
-      \ datamodel
-      \ dbinspect
-      \ dedup
-      \ delete
-      \ delta
-      \ diff
-      \ erex
-      \ eval
-      \ eventcount
-      \ eventstats
-      \ extract
-      \ fieldformat
-      \ fields
-      \ fieldsummary
-      \ filldown
-      \ fillnull
-      \ findtypes
-      \ folderize
-      \ foreach
-      \ format
-      \ from
-      \ gauge
-      \ gentimes
-      \ geom
-      \ geomfilter
-      \ geostats
-      \ head
-      \ highlight
-      \ history
-      \ iconify
-      \ input
-      \ inputcsv
-      \ inputlookup
-      \ iplocation
-      \ join
-      \ kmeans
-      \ kvform
-      \ loadjob
-      \ localize
-      \ localop
-      \ lookup
-      \ makecontinuous
-      \ makemv
-      \ makeresults
-      \ map
-      \ mcollect
-      \ metadata
-      \ metasearch
-      \ meventcollect
-      \ mstats
-      \ multikv
-      \ multisearch
-      \ mvcombine
-      \ mvexpand
-      \ nomv
-      \ outlier
-      \ outputcsv
-      \ outputlookup
-      \ outputtext
-      \ overlap
-      \ pivot
-      \ predict
-      \ rangemap
-      \ rare
-      \ redistribute
-      \ regex
-      \ relevancy
-      \ reltime
-      \ rename
-      \ replace
-      \ rest
-      \ return
-      \ reverse
-      \ rex
-      \ rtorder
-      \ run
-      \ savedsearch
-      \ script
-      \ scrub
-      \ search
-      \ searchtxn
-      \ selfjoin
-      \ sendemail
-      \ set
-      \ setfields
-      \ sichart
-      \ sirare
-      \ sistats
-      \ sitimechart
-      \ sitop
-      \ sort
-      \ spath
-      \ stats
-      \ strcat
-      \ streamstats
-      \ table
-      \ tags
-      \ tail
-      \ timechart
-      \ timewrap
-      \ top
-      \ transaction
-      \ transpose
-      \ trendline
-      \ tscollect
-      \ tstats
-      \ typeahead
-      \ typelearner
-      \ typer
-      \ union
-      \ uniq
-      \ untable
-      \ where
-      \ x11
-      \ xmlkv
-      \ xmlunescape
-      \ xpath
-      \ xyseries
-
-" internal commands
-syntax keyword splInternal
-      \ collapse
-      \ dump
-      \ findkeywords
-      \ mcatalog
-      \ noop
-      \ runshellscript
-      \ sendalert
+" eval constants
+syntax keyword splEvalConstant contained
+      \ false
+      \ true
 
 " eval functions
-syntax keyword splEvalFunction
+syntax keyword splEvalFunction contained
       \ abs
       \ acos
       \ acosh
@@ -303,7 +147,7 @@ syntax keyword splEvalFunction
       \ validate
 
 " eval operators
-syntax keyword splEvalOperator
+syntax keyword splEvalOperator contained
       \ +
       \ -
       \ *
@@ -318,8 +162,11 @@ syntax keyword splEvalOperator
       \ not
       \ or
 
+" eval region
+syntax region splEval start=/\%(\%(eval\|where\)\s\+\)\@<=/ end=/|\@=\|$/ contains=splEvalConstant,splEvalFunction,splEvalOperator
+
 " stat functions
-syntax keyword splStatFunction
+syntax keyword splStatFunction contained
       \ avg
       \ count
       \ distinct_count
@@ -327,7 +174,7 @@ syntax keyword splStatFunction
       \ estdc_error
       \ max
       \ mean
-      \ median
+      \ medianexclusive
       \ min
       \ mode
       \ percentile
@@ -349,6 +196,182 @@ syntax keyword splStatFunction
       \ per_minute
       \ per_second
 
+" stat region
+syntax region splStat start=/\%(stats\s\+\)\@<=/ end=/|\@=\|$/ contains=splStatFunction
+
+" search commands
+syntax keyword splCommand contained
+      \ abstract
+      \ accum
+      \ addcoltotals
+      \ addinfo
+      \ addtotals
+      \ analyzefields
+      \ anomalies
+      \ anomalousvalue
+      \ anomalydetection
+      \ append
+      \ appendcols
+      \ appendpipe
+      \ arules
+      \ associate
+      \ audit
+      \ autoregress
+      \ bin
+      \ bucket
+      \ bucketdir
+      \ chart
+      \ cluster
+      \ cofilter
+      \ collect
+      \ concurrency
+      \ contingency
+      \ convert
+      \ correlate
+      \ ctable
+      \ datamodel
+      \ dbinspect
+      \ dedup
+      \ delete
+      \ delta
+      \ diff
+      \ erex
+      \ eventcount
+      \ eventstats
+      \ extract
+      \ fieldformat
+      \ fields
+      \ fieldsummary
+      \ filldown
+      \ fillnull
+      \ findtypes
+      \ folderize
+      \ foreach
+      \ format
+      \ from
+      \ gauge
+      \ gentimes
+      \ geom
+      \ geomfilter
+      \ geostats
+      \ head
+      \ highlight
+      \ history
+      \ iconify
+      \ input
+      \ inputcsv
+      \ inputlookup
+      \ iplocation
+      \ join
+      \ kmeans
+      \ kvform
+      \ loadjob
+      \ localize
+      \ localop
+      \ lookup
+      \ makecontinuous
+      \ makemv
+      \ makeresults
+      \ map
+      \ mcollect
+      \ metadata
+      \ metasearch
+      \ meventcollect
+      \ mstats
+      \ multikv
+      \ multisearch
+      \ mvcombine
+      \ mvexpand
+      \ nomv
+      \ outlier
+      \ outputcsv
+      \ outputlookup
+      \ outputtext
+      \ overlap
+      \ pivot
+      \ predict
+      \ rangemap
+      \ rare
+      \ redistribute
+      \ regex
+      \ relevancy
+      \ reltime
+      \ rename
+      \ replace
+      \ rest
+      \ return
+      \ reverse
+      \ rex
+      \ rtorder
+      \ run
+      \ savedsearch
+      \ script
+      \ scrub
+      \ searchtxn
+      \ selfjoin
+      \ sendemail
+      \ set
+      \ setfields
+      \ sichart
+      \ sirare
+      \ sistats
+      \ sitimechart
+      \ sitop
+      \ sort
+      \ spath
+      \ strcat
+      \ streamstats
+      \ table
+      \ tags
+      \ tail
+      \ timechart
+      \ timewrap
+      \ top
+      \ transaction
+      \ transpose
+      \ trendline
+      \ tscollect
+      \ tstats
+      \ typeahead
+      \ typelearner
+      \ typer
+      \ union
+      \ uniq
+      \ untable
+      \ x11
+      \ xmlkv
+      \ xmlunescape
+      \ xpath
+      \ xyseries
+
+" internal commands
+syntax keyword splInternal contained
+      \ collapse
+      \ dump
+      \ findkeywords
+      \ mcatalog
+      \ noop
+      \ runshellscript
+      \ sendalert
+
+" search command
+syntax match splSearchCommand contained
+      \ /\%(|\s*\)\@<=search/
+
+" search
+syntax region splSearch start=/search\s\+/ end=/|\@=\|$/ contains=splSearchCommand,splSeparator,splSpecial,splOperator,splBadOperator,splIdentifier
+
+" implicit search
+syntax region splImplicit start=// end=/|\@=\|$/ contains=splSeparator,splSpecial,splOperator,splBadOperator,splIdentifier
+
+" pipe
+syntax match splPipe nextgroup=splEval,splStat,splSearch,splCommand,splInternal skipwhite skipnl skipempty
+      \ /|/
+
+" start of line
+syntax match splStart nextgroup=splImplicit,splPipe skipwhite
+      \ /^/
+
 " set highlights
 highlight default link splComment Comment
 
@@ -361,17 +384,20 @@ highlight default link splFloat Float
 highlight default link splSeparator Special
 highlight default link splSpecial Special
 
-highlight default link splConstant Constant
-
 highlight default link splOperator Operator
-highlight default link splEvalOperator Operator
+highlight default link splBadOperator Error
 
 highlight default link splIdentifier Identifier
 
-highlight default link splCommand Keyword
-highlight default link splInternal Keyword
-
+highlight default link splEvalConstant Constant
 highlight default link splEvalFunction Function
 highlight default link splEvalOperator Operator
 
 highlight default link splStatFunction Function
+
+highlight default link splCommand Keyword
+highlight default link splInternal Keyword
+
+highlight default link splSearchCommand Keyword
+
+highlight default link splPipe Special
