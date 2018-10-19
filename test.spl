@@ -1,10 +1,12 @@
 | abstract abstract avg eval and | search and | eval and
 abstract abstract avg eval and | search and | eval and
-  | stats avg
-  | eval and
+  | stats avg |
+  stats avg
+  | eval and |
+  eval and
   | search search |
   search
   | asdf |
-  search
+  search asdf
 
-| 
+search sdf

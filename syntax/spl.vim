@@ -162,8 +162,12 @@ syntax keyword splEvalOperator contained
       \ not
       \ or
 
+" eval command
+syntax match splEvalCommand contained
+      \ /\%(^\s*\||\s*\)\@<=\%(eval\|where\)/
+
 " eval region
-syntax region splEval start=/\%(\%(eval\|where\)\s\+\)\@<=/ end=/|\@=\|$/ contains=splEvalConstant,splEvalFunction,splEvalOperator
+syntax region splEval start=/\%(eval\|where\)\s\+/ end=/|\@=\|$/ contains=splEvalCommand,splEvalFunction,splEvalOperator
 
 " stat functions
 syntax keyword splStatFunction contained
@@ -196,8 +200,12 @@ syntax keyword splStatFunction contained
       \ per_minute
       \ per_second
 
+" stat command
+syntax match splStatCommand contained
+      \ /\%(^\s*\||\s*\)\@<=\%(stats\|eventstats\|geostats\|mstats\|sistats\|streamstats\|tstats\)/
+
 " stat region
-syntax region splStat start=/\%(stats\s\+\)\@<=/ end=/|\@=\|$/ contains=splStatFunction
+syntax region splStat start=/\%(stats\|eventstats\|geostats\|mstats\|sistats\|streamstats\|tstats\)\s\+/ end=/|\@=\|$/ contains=splStatCommand,splStatFunction
 
 " search commands
 syntax keyword splCommand contained
@@ -237,7 +245,6 @@ syntax keyword splCommand contained
       \ diff
       \ erex
       \ eventcount
-      \ eventstats
       \ extract
       \ fieldformat
       \ fields
@@ -253,7 +260,6 @@ syntax keyword splCommand contained
       \ gentimes
       \ geom
       \ geomfilter
-      \ geostats
       \ head
       \ highlight
       \ history
@@ -277,7 +283,6 @@ syntax keyword splCommand contained
       \ metadata
       \ metasearch
       \ meventcollect
-      \ mstats
       \ multikv
       \ multisearch
       \ mvcombine
@@ -314,13 +319,11 @@ syntax keyword splCommand contained
       \ setfields
       \ sichart
       \ sirare
-      \ sistats
       \ sitimechart
       \ sitop
       \ sort
       \ spath
       \ strcat
-      \ streamstats
       \ table
       \ tags
       \ tail
@@ -331,7 +334,6 @@ syntax keyword splCommand contained
       \ transpose
       \ trendline
       \ tscollect
-      \ tstats
       \ typeahead
       \ typelearner
       \ typer
@@ -356,13 +358,13 @@ syntax keyword splInternal contained
 
 " search command
 syntax match splSearchCommand contained
-      \ /\%(|\s*\)\@<=search/
+      \ /\%(^\s*\||\s*\)\@<=\%(search\)/
 
 " search
-syntax region splSearch start=/search\s\+/ end=/|\@=\|$/ contains=splSearchCommand,splSeparator,splSpecial,splOperator,splBadOperator,splIdentifier
+syntax region splSearch start=/\%(search\)\s\+/ end=/|\@=\|$/ contains=splSearchCommand,splSeparator,splSpecial,splOperator,splBadOperator,splIdentifier
 
 " implicit search
-syntax region splImplicit start=// end=/|\@=\|$/ contains=splSeparator,splSpecial,splOperator,splBadOperator,splIdentifier
+syntax region splImplicit start=/\|search\s\+/ end=/|\@=\|$/ contains=splSearchCommand,splSeparator,splSpecial,splOperator,splBadOperator,splIdentifier
 
 " pipe
 syntax match splPipe nextgroup=splEval,splStat,splSearch,splCommand,splInternal skipwhite skipnl skipempty
@@ -392,8 +394,10 @@ highlight default link splIdentifier Identifier
 highlight default link splEvalConstant Constant
 highlight default link splEvalFunction Function
 highlight default link splEvalOperator Operator
+highlight default link splEvalCommand Keyword
 
 highlight default link splStatFunction Function
+highlight default link splStatCommand Keyword
 
 highlight default link splCommand Keyword
 highlight default link splInternal Keyword
