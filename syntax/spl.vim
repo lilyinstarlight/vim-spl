@@ -2,6 +2,7 @@
 " Language: SPL
 " Maintainer: Foster McLane
 " Last Change: 2018-10-18
+" TODO: chart functions, top, where clauses
 
 " guard for other syntaxes
 if exists('b:current_syntax')
@@ -46,14 +47,13 @@ syntax keyword splBadOperator contained
 
 " identifiers
 syntax keyword splIdentifier contained
-      \ time
-      \ span
       \ earliest
       \ latest
-      \ limit
-      \ minspan
-      \ start
-      \ end
+      \ span "stats
+      \ limit "top
+      \ minspan "?
+      \ start "?
+      \ end "?
 
 " eval constants
 syntax keyword splEvalConstant contained
