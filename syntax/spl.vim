@@ -167,7 +167,7 @@ syntax match splEvalCommand contained
       \ /\%(^\s*\||\s*\)\@<=\%(eval\|where\)/
 
 " eval region
-syntax region splEval start=/\%(eval\|where\)\s\+/ end=/|\@=\|$/ contains=splEvalCommand,splEvalFunction,splEvalOperator
+syntax region splEval contained start=/\%(eval\|where\)\s\+/ end=/|\@=\|$/ contains=splEvalCommand,splEvalFunction,splEvalOperator
 
 " stat functions
 syntax keyword splStatFunction contained
@@ -205,7 +205,7 @@ syntax match splStatCommand contained
       \ /\%(^\s*\||\s*\)\@<=\%(stats\|eventstats\|geostats\|mstats\|sistats\|streamstats\|tstats\)/
 
 " stat region
-syntax region splStat start=/\%(stats\|eventstats\|geostats\|mstats\|sistats\|streamstats\|tstats\)\s\+/ end=/|\@=\|$/ contains=splStatCommand,splStatFunction
+syntax region splStat contained start=/\%(stats\|eventstats\|geostats\|mstats\|sistats\|streamstats\|tstats\)\s\+/ end=/|\@=\|$/ contains=splStatCommand,splStatFunction
 
 " search commands
 syntax keyword splCommand contained
@@ -361,10 +361,10 @@ syntax match splSearchCommand contained
       \ /\%(^\s*\||\s*\)\@<=\%(search\)/
 
 " search
-syntax region splSearch start=/\%(search\)\s\+/ end=/|\@=\|$/ contains=splSearchCommand,splSeparator,splSpecial,splOperator,splBadOperator,splIdentifier
+syntax region splSearch contained start=/\%(search\)\s\+/ end=/|\@=\|$/ contains=splSearchCommand,splSeparator,splSpecial,splOperator,splBadOperator,splIdentifier
 
 " implicit search
-syntax region splImplicit start=/\|search\s\+/ end=/|\@=\|$/ contains=splSearchCommand,splSeparator,splSpecial,splOperator,splBadOperator,splIdentifier
+syntax region splImplicit contained start=/\|search\s\+/ end=/|\@=\|$/ contains=splSearchCommand,splSeparator,splSpecial,splOperator,splBadOperator,splIdentifier
 
 " pipe
 syntax match splPipe nextgroup=splEval,splStat,splSearch,splCommand,splInternal skipwhite skipnl skipempty
