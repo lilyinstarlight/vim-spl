@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language: SPL
 " Maintainer: Foster McLane
-" Last Change: 2018-09-24
+" Last Change: 2018-10-18
 
 " guard for other syntaxes
 if exists('b:current_syntax')
