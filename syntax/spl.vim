@@ -1,8 +1,7 @@
 " Vim syntax file
 " Language: SPL
 " Maintainer: Foster McLane
-" Last Change: 2018-10-18
-" TODO: chart functions, top, where clauses
+" Last Change: 2018-10-19
 
 " guard for other syntaxes
 if exists('b:current_syntax')
@@ -34,12 +33,6 @@ syntax keyword splOperator contained
       \ AND
       \ NOT
       \ OR
-      \ by
-      \ BY
-      \ as
-      \ AS
-      \ over
-      \ size
 
 syntax keyword splBadOperator contained
       \ and
@@ -49,11 +42,6 @@ syntax keyword splBadOperator contained
 syntax keyword splIdentifier contained
       \ earliest
       \ latest
-      \ span "stats
-      \ limit "top
-      \ minspan "?
-      \ start "?
-      \ end "?
 
 " eval constants
 syntax keyword splEvalConstant contained
@@ -169,6 +157,17 @@ syntax match splEvalCommand contained
 " eval region
 syntax region splEval contained start=/\%(eval\|where\)\s\+/ end=/|\@=\|$/ contains=splEvalCommand,splEvalFunction,splEvalOperator,splComment
 
+" stat operators
+syntax keyword splStatOperator contained
+      \ by
+      \ BY
+
+" stat identifiers
+syntax keyword splStatIdentifier contained
+      \ allnum
+      \ delim
+      \ partitions
+
 " stat functions
 syntax keyword splStatFunction contained
       \ avg
@@ -205,7 +204,38 @@ syntax match splStatCommand contained
       \ /\%(^\s*\||\s*\)\@<=\%(stats\|eventstats\|geostats\|mstats\|sistats\|streamstats\|tstats\)/
 
 " stat region
-syntax region splStat contained start=/\%(stats\|eventstats\|geostats\|mstats\|sistats\|streamstats\|tstats\)\s\+/ end=/|\@=\|$/ contains=splStatCommand,splStatFunction,splComment
+syntax region splStat contained start=/\%(stats\|eventstats\|geostats\|mstats\|sistats\|streamstats\|tstats\)\s\+/ end=/|\@=\|$/ contains=splStatCommand,splStatOperator,splStatIdentifier,splStatFunction,splComment
+
+" chart identifiers
+syntax keyword splChartOperator contained
+      \ by
+      \ BY
+      \ over
+      \ OVER
+
+" chart identifiers
+syntax keyword splChartIdentifier contained
+      \ bins
+      \ span
+      \ minspan
+
+" chart command
+syntax match splChartCommand contained
+      \ /\%(^\s*\||\s*\)\@<=\%(chart\|timechart\|sichart\|sitimechart\)/
+
+" chart region
+syntax region splChart contained start=/\%(chart\|timechart\|sichart\|sitimechart\)\s\+/ end=/|\@=\|$/ contains=splChartCommand,splChartOperator,splChartIdentifier,splStatFunction,splComment
+
+" top identifiers
+syntax keyword splTopIdentifier contained
+      \ limit
+
+" top command
+syntax match splTopCommand contained
+      \ /\%(^\s*\||\s*\)\@<=\%(top\|sitop\)/
+
+" top region
+syntax region splTop contained start=/\%(top\|sitop\)\s\+/ end=/|\@=\|$/ contains=splTopCommand,splTopIdentifier,splComment
 
 " search commands
 syntax keyword splCommand contained
@@ -228,7 +258,6 @@ syntax keyword splCommand contained
       \ bin
       \ bucket
       \ bucketdir
-      \ chart
       \ cluster
       \ cofilter
       \ collect
@@ -317,19 +346,14 @@ syntax keyword splCommand contained
       \ sendemail
       \ set
       \ setfields
-      \ sichart
       \ sirare
-      \ sitimechart
-      \ sitop
       \ sort
       \ spath
       \ strcat
       \ table
       \ tags
       \ tail
-      \ timechart
       \ timewrap
-      \ top
       \ transaction
       \ transpose
       \ trendline
@@ -367,7 +391,7 @@ syntax region splSearch contained start=/\%(search\)\s\+/ end=/|\@=\|$/ contains
 syntax region splImplicit contained start=/\|search\s\+/ end=/|\@=\|$/ contains=splSearchCommand,splSeparator,splSpecial,splOperator,splBadOperator,splIdentifier,splComment
 
 " pipe
-syntax match splPipe nextgroup=splEval,splStat,splSearch,splCommand,splInternal skipwhite skipnl skipempty
+syntax match splPipe nextgroup=splEval,splStat,splChart,splTop,splSearch,splCommand,splInternal skipwhite skipnl skipempty
       \ /|/
 
 " start of line
@@ -396,8 +420,18 @@ highlight default link splEvalFunction Function
 highlight default link splEvalOperator Operator
 highlight default link splEvalCommand Keyword
 
+highlight default link splStatOperator Operator
+highlight default link splStatIdentifier Keyword
 highlight default link splStatFunction Function
 highlight default link splStatCommand Keyword
+
+highlight default link splChartOperator Operator
+highlight default link splChartIdentifier Identifier
+highlight default link splChartFunction Function
+highlight default link splChartCommand Keyword
+
+highlight default link splTopIdentifier Identifier
+highlight default link splTopCommand Keyword
 
 highlight default link splCommand Keyword
 highlight default link splInternal Keyword
